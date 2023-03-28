@@ -1,7 +1,6 @@
 import { buildSchema } from "graphql";
 
 const schema = buildSchema(`
-
 type User {
     _id: String!
     name: String!
@@ -11,16 +10,9 @@ type User {
     password: String!
 }
 
-type AuthData {
-    userId: String!
-    token: String!
-    tokenExpiration: Int!
-}
-
 type Query {
     users: [User]!
     user(_id: String!): User
-    login(email: String!, password: String!): AuthData
 }
 
 type Mutation {
