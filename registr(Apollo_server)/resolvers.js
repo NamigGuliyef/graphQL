@@ -1,13 +1,15 @@
-import  userModel  from './schema.js'
+import Joi from 'joi'
+import userModel from './schema.js'
 
 const resolvers = {
     Query: {
-        async users() {
-            const users = await userModel.find()
-            return users
-        },
-        async userAmount(_, { amount }) {
-            const userAmount = await userModel.find().limit(amount)
+        async users(_, { amount }) {
+            const amountSchema = Joi.number()
+            const { error, value } = amountSchema.validate(amount)
+            if (error) {
+                return error.message
+            }
+            const userAmount = await userModel.find().limit(value)
             return userAmount
         },
         async user(_, { _id }) {

@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken'
-import { jwt_secret } from './index.js'
+import { jwt_secret } from './utils.js'
+
 const AuthMiddleWare = (req, res, next) => {
     const token = req.headers.authorization?.split(' ')[1]
     if (!token) {
