@@ -7,13 +7,11 @@ type User {
     name: String!
     surname: String!
     email: String!
-    password: String!
 }
 
 type Query {
-    users: [User]!
     user(_id: ID!): User!
-    userAmount(amount: Int!): [User]!
+    users(amount: Int): [User]
 }
 
 input updateUserInput {
@@ -21,9 +19,20 @@ input updateUserInput {
     password: String!
 }
 
+input createUserInput{
+    name: String!
+    surname: String!
+    email: String!
+    password: String!
+}
+
 type Mutation {
+    createUser(user: createUserInput): User!
     updateUser(_id: ID!, user: updateUserInput): User!
     deletedUser(_id: ID!): Boolean
-}`)
+}
+
+
+`)
 
 export default typeDefs
