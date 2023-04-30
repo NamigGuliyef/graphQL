@@ -1,36 +1,18 @@
-import { buildSchema } from "graphql";
+import { Schema, model } from "mongoose";
+type User = {
+  name: string;
+  email: string;
+  password: string;
+};
 
-const schema = buildSchema(`
-type User {
-    _id: String!
-    name: String!
-    email: String!
-    password: String!
-}
+const userSchema = new Schema<User>(
+  {
+    name: String,
+    email: String,
+    password: String,
+  },
+  { versionKey: false, timestamps: true }
+);
 
-type Query {
-    users: [User]!
-    user(_id: ID!): User!
-    userAmount(amount: Int!): User!
-}
-
-type create {
-    name: String!
-    email: String!
-    password: String!
-}
-
-type update {
-    name: String
-    email: String
-    password: String
-}
-
-type Mutation {
-    createUser(user: create): User!
-    updateUser(_id: ID!,user: update): User!
-    deleteUser(_id: ID!): Boolean
-}
-`);
-
-export default schema;
+const userModel = model("user", userSchema);
+export default userModel;
